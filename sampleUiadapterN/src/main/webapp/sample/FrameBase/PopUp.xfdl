@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="PopUp" width="650" height="580" titletext="New Form">
+    <Layouts>
+      <Layout height="580" mobileorientation="landscape" width="650">
+        <Static id="Static00" taborder="0" text="분류코드 등록" left="21" top="30" width="159" height="41" onclick="Static00_onclick" font="18px/normal &quot;함초롬바탕 확장&quot; bold"/>
+        <MaskEdit id="MaskEdit00" taborder="1" left="22" top="82" width="285" height="38"/>
+        <Static id="Static01" taborder="2" text="  한도 점검항목" left="21" top="81" width="90" height="38" background="#d3d3d3"/>
+        <Combo id="Combo00" taborder="3" text="" left="110" top="82" width="196" height="37" innerdataset="ds_search" codecolumn="inspectionId" datacolumn="inspectionItem" value="1" index="-1" onitemchanged="Combo00_onitemchanged"/>
+        <Grid id="Grid00" taborder="4" left="22" top="129" width="285" height="431" binddataset="ds_class_code" autofittype="col" oncellclick="Grid00_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="분류코드"/>
+                <Cell col="1" text="코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:classCode"/>
+                <Cell col="1" text="bind:className"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00_00" taborder="5" text="입력 및 상세내역" left="317" top="83" width="159" height="41" onclick="Static00_onclick" font="18px/normal &quot;함초롬바탕 확장&quot; bold"/>
+        <Button id="Button00_02" taborder="8" text="입력" left="511" top="92" width="33" height="27" onclick="Button00_02_onclick"/>
+        <Button id="Button00_00_00" taborder="10" text="수정" left="554" top="92" width="33" height="27" onclick="Button00_00_00_onclick"/>
+        <Button id="Button00_01_00" taborder="12" text="취소" left="598" top="92" width="33" height="27" onclick="Button00_01_00_onclick"/>
+        <Button id="Button00_02_00" taborder="7" text="삭제" left="520" top="23" width="33" height="27" onclick="Button00_02_00_onclick"/>
+        <Button id="Button00_00_00_00" taborder="9" text="저장" left="563" top="23" width="33" height="27" onclick="Button00_00_00_00_onclick"/>
+        <Button id="Button00_01_00_00" taborder="11" text="종료" left="607" top="23" width="33" height="27" onclick="Button00_01_00_00_onclick"/>
+        <Grid id="Grid01" taborder="13" left="318" top="132" width="322" height="108" autofittype="col" binddataset="ds_cellDetail" autosizebandtype="body" autosizingtype="none">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="40"/>
+                <Column size="120"/>
+              </Columns>
+              <Rows>
+                <Row size="34"/>
+                <Row size="37"/>
+                <Row size="36"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="점검항목" background="#BFEAFF"/>
+                <Cell col="1" text="bind:inspectionItem" background="white" displaytype="text" edittype="none" combodataset="ds_search" combodisplaynulltext="bind:inspectionItem"/>
+                <Cell row="1" text="분류코드" background="#BFEAFF"/>
+                <Cell row="1" col="1" text="bind:classCode" background="white" edittype="text" textAlign="left" displaytype="text"/>
+                <Cell row="2" text="분류명" background="#BFEAFF"/>
+                <Cell row="2" col="1" text="bind:className" background="white" textAlign="left" displaytype="text" edittype="none"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Combo id="Combo01" taborder="6" text="Combo01" left="396" top="136" width="224" height="29" innerdataset="ds_search" codecolumn="inspectionId" datacolumn="inspectionItem" onitemchanged="Combo01_onitemchanged" opacity="0%" readonly="true"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[// 페이지 load 시 불러 올 데이터들 -----------
+//####################################################################
+//####################################################################
+//####################################################################
+var svcId="inspect";
+var svcUrl="svc::selectInspectionList.do";
+var inData = "";
+var outData = "ds_search=inspectionList";
+var strArg = "";
+var callBackFnc = "fnCallback";
+var isAsync = true;
+
+this.transaction(svcId,
+				 svcUrl,
+				inData,
+				outData,
+				strArg,
+				callBackFnc,
+				isAsync);
+					
+this.ds_inspection.setColumn(0, "inspectionId", "1");
+
+var strSvcId = "classSearch"; // id값 의미가 크게x
+var strSvcUrl = "svc::selectMainList.do"; // controller에 매핑되는 값
+var inData = "inputInspection=ds_inspection" // 
+var outData = "ds_class_code=output1";
+var strArg = "";
+var callBackFnc = "fnCallback";
+var isAsync = true;
+
+this.transaction(strSvcId,
+				 strSvcUrl,
+				inData,
+				outData,
+				strArg,
+				callBackFnc,
+				isAsync);		
+// ####################################
+// ####################################
+// ####################################
+
+this.fnSearch = function (){
+	// 검색 조건
+	this.ds_inspection.setColumn(0, "inspectionId", this.Combo00.value);
+	
+	var strSvcId = "classSearch"; // id값 의미가 크게x
+	var strSvcUrl = "svc::selectMainList.do"; // controller에 매핑되는 값
+	var inData = "inputInspection=ds_inspection" // 
+	var outData = "ds_class_code=output1";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+
+	
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+};
+
+// 아이템 바뀌면..
+this.Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.fnSearch();
+	this.fnViewComboBox();
+};
+
+// 셀 클릭 시 분류코드 디테일
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	this.fnSaveEG(obj, e);
+	this.fnClassCodeDetail(obj, e);
+	this.fnChangeReadOnly(this.Grid01, e);
+	this.fnViewComboBox();
+};
+
+// 분류코드 디테일 
+this.fnClassCodeDetail = function(obj, e){
+	// ds_cellClickSearch 데이터셋에 classCode라는 이름으로 getColumn에 해당하는 정보를 셋팅해준다.
+	this.ds_cellClickSearch.setColumn(0, "classCode", obj.getBindDataset().getColumn(e.row,"classCode"));
+	
+	var strSvcId = "cellDetail";
+	var strSvcUrl = "svc::popupCellClick.do"; 
+	var inData = "detail=ds_cellClickSearch" // 
+	var outData = "ds_cellDetail=result";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+}
+
+var saveMode = "newInput";
+
+// 입력버튼 눌렀을 시 
+this.Button00_02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+
+	if(saveMode == "modify"){
+		alert("수정 중에는 입력할 수 없습니다.");
+		return false;
+	}
+	this.Combo01.set_opacity(1.0);
+	this.Combo01.set_readonly(false);
+	this.fnChangeInputType(this.Grid01, e);
+	var svcId="inspect";
+	var svcUrl="svc::selectInspectionList.do";
+	var inData = "";
+	var outData = "ds_search=inspectionList";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+
+	this.transaction(svcId,
+					 svcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+};
+
+this.fnViewComboBox = function(){
+	this.Combo01.set_opacity(0.0);
+	this.Combo01.set_readonly(true);
+}
+
+// 입력버튼 함수
+this.fnChangeInputType = function(grid, e){
+	grid.setCellProperty("body", 1, "displaytype", "combocontrol");
+	grid.setCellProperty("body", 1, "edittype", "combo");
+	grid.setCellProperty("body", 3, "displaytype", "text");
+	grid.setCellProperty("body", 3, "edittype", "text");
+	grid.setCellProperty("body", 5, "displaytype", "text");
+	grid.setCellProperty("body", 5, "edittype", "text");
+	this.Grid01.setCellProperty("body", 0, "background", "#e9ec69");
+	this.Grid01.setCellProperty("body", 2, "background", "#e9ec69");
+	this.Grid01.setCellProperty("body", 4, "background", "#e9ec69");
+	saveMode = "newInput";
+}
+
+this.fnChangeReadOnly = function(grid, e){
+	grid.setCellProperty("body", 1, "displaytype", "normal");
+	grid.setCellProperty("body", 1, "edittype", "none");
+	grid.setCellProperty("body", 3, "displaytype", "normal");
+	grid.setCellProperty("body", 3, "edittype", "none");
+	grid.setCellProperty("body", 5, "displaytype", "normal");
+	grid.setCellProperty("body", 5, "edittype", "none");
+	this.Grid01.setCellProperty("body", 0, "background", "#BFEAFF");
+	this.Grid01.setCellProperty("body", 2, "background", "#BFEAFF");
+	this.Grid01.setCellProperty("body", 4, "background", "#BFEAFF");
+	saveMode = "noSave";
+	this.fnViewComboBox();
+}
+
+//저장버튼
+this.Button00_00_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	this.fnPopupSave();
+	this.fnChangeReadOnly(this.Grid01);
+	this.fnViewComboBox();
+	this.fnReSearch();
+};
+
+var insItem = "";
+
+this.fnPopupSave = function () {
+	if(saveMode == "noSave"){
+		alert("입력 및 수정 버튼을 먼저 눌러주세요");
+		return false;
+	}
+	else if(saveMode == "newInput")
+	{	
+	//신규입력
+		var val = String(this.Grid01.getBindDataset().getColumn(0, "classCode"));
+		var regex = /[0-9]/g;
+		
+		if(regex.test(val) == false){
+			alert("숫자만 입력가능합니다.");
+			return false;
+		}
+		if(val.length != 8){
+			alert("분류코드를 8개의 숫자로 넣어주세요");
+			return false;
+		}
+		this.ds_trsf.setColumn(0, "mode", "1");
+		this.ds_trsf.setColumn(0, "inspectionItem", this.Combo01.text);		
+		insItem = this.Combo01.value;
+	}
+	else if(saveMode == "modify")
+	{	//수정
+		this.ds_trsf.setColumn(0, "mode", "2");
+		this.ds_trsf.setColumn(0, "inspectionItem", this.Grid01.getBindDataset().getColumn(0,"inspectionItem"));
+	}
+	
+	// 공통실행부분
+	this.ds_trsf.setColumn(0, "classCode", this.Grid01.getBindDataset().getColumn(0,"classCode"));
+	this.ds_trsf.setColumn(0, "className", this.Grid01.getBindDataset().getColumn(0,"className"));
+	
+	var strSvcId = "cellDetail";
+	var strSvcUrl = "svc::popupSave.do"; 
+	var inData = "input=ds_trsf" // 
+	var outData = "alerts=msg";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = false;
+	
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+
+	if(this.alerts.getColumn(0,"msg") != null){
+		alert(this.alerts.getColumn(0,"msg"));
+		this.alerts.setColumn(0, "msg", null);
+	}else{
+		alert("저장되었습니다.");
+		this.alerts.setColumn(0, "msg", null);
+		
+	}
+}
+
+// 수정 버튼
+this.Button00_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(saveMode == "newInput"){
+		alert("입력 중에는 수정할 수 없습니다.");
+		return false;
+	}
+	this.Grid01.setCellProperty("body", 5, "displaytype", "text");
+	this.Grid01.setCellProperty("body", 5, "edittype", "text");
+	this.Grid01.setCellProperty("body", 4, "background", "#e9ec69");
+	saveMode = "modify";
+};
+
+// 취소버튼
+this.Button00_01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnClassCodeDetail(this.Grid00, e);
+	this.fnChangeReadOnly(this.Grid01, e);
+	saveMode = "noSave";
+};
+
+// 삭제버튼
+this.Button00_02_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var strSvcId = "cellDetail";
+	var strSvcUrl = "svc::deleteClassCode.do"; 
+	var inData = "delete=ds_cellClickSearch" // 
+	var outData = "";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = false;
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+};
+
+this.fnSaveEG = function(obj, e){
+	this.ds_cellClickSearch.setColumn(0, "classCode", obj.getBindDataset().getColumn(e.row,"classCode"));
+}
+
+this.Button00_01_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.fnReSearch = function (){
+	// 검색 조건
+	this.ds_inspection.setColumn(0, "inspectionId", insItem);
+	
+	var strSvcId = "classSearch"; // id값 의미가 크게x
+	var strSvcUrl = "svc::selectMainList.do"; // controller에 매핑되는 값
+	var inData = "inputInspection=ds_inspection" // 
+	var outData = "ds_class_code=output1";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+
+	
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+};
+
+
+ ]]></Script>
+    <Objects>
+      <Dataset id="ds_search">
+        <ColumnInfo>
+          <Column id="inspectionId" type="STRING" size="256"/>
+          <Column id="inspectionItem" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_class_code">
+        <ColumnInfo>
+          <Column id="분류코드" type="INT" size="256"/>
+          <Column id="코드명" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_inspection">
+        <ColumnInfo>
+          <Column id="inspectionId" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_cellClickSearch">
+        <ColumnInfo>
+          <Column id="classCode" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_cellDetail">
+        <ColumnInfo>
+          <Column id="inspectionItem" type="STRING" size="256"/>
+          <Column id="classCode" type="STRING" size="256"/>
+          <Column id="className" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_trsf">
+        <ColumnInfo>
+          <Column id="inspectionItem" type="STRING" size="256"/>
+          <Column id="classCode" type="STRING" size="256"/>
+          <Column id="className" type="STRING" size="256"/>
+          <Column id="mode" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="alerts">
+        <ColumnInfo>
+          <Column id="msg" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

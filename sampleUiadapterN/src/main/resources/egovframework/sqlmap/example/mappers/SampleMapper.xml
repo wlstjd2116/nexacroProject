@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sample.service.impl.SampleMapper">
+
+    <select id="selectClassList" parameterType="sample.vo.SearchConditionVO" resultType="sample.vo.ClassVO">
+    	SELECT * 
+    	FROM TB_CLASS
+    	WHERE 1=1
+    	<if test="inspectionId != null">
+    		AND CL_INSPECTIONID =#{inspectionId}
+    	</if>
+    </select>
+    
+    <select id="selectInspectionList" resultType="sample.vo.InspectionVO">
+    	SELECT *
+    	FROM TB_inspectionItem
+    </select>
+    
+    <select id="selectAssetList" resultType="sample.vo.AssetVO">
+    	SELECT *
+    	FROM TB_ASSET
+    </select>
+    
+    <select id="selectAccountList" resultType="sample.vo.AccountVO">
+		select ac.*, aset.assetname
+		from tb_account ac, tb_asset aset
+		where ac.ac_assetdivision = aset.assetdivision
+    </select>
+    
+    <select id="cellAccountList" parameterType="sample.vo.SearchConditionVO" resultType="sample.vo.AccountVO">
+		SELECT T.*, A.*
+    	FROM (SELECT TT.*
+             FROM (SELECT ROWNUM RN, A.* FROM TB_CLASS A WHERE CL_INSPECTIONID = #{inspectionId} ORDER BY A.CLASSCODE) TT
+             WHERE TT.RN = #{cellNum} 
+             )T , TB_ACCOUNT A
+        WHERE T.CLASSCODE = A.AC_CLASSCODE
+    </select>
+    
+    <select id="saveClassCode" parameterType="sample.vo.SearchConditionVO" resultType="Integer">
+    	SELECT TT.classCode
+        FROM (SELECT ROWNUM RN, A.* FROM TB_CLASS A WHERE CL_INSPECTIONID = #{inspectionId}) TT
+	    WHERE TT.RN = #{cellNum}
+    </select>
+    
+    <select id="accountForAssetList" parameterType="sample.vo.AssetVO" resultType="sample.vo.AccountVO">
+    	SELECT * 
+    	FROM (	SELECT AC.*, ASET.ASSETNAME
+    			FROM TB_ACCOUNT AC, TB_ASSET ASET
+    			WHERE AC.AC_ASSETDIVISION = ASET.ASSETDIVISION)
+    	WHERE 1=1 
+    	<if test="assetDivision != 'ALL'">
+    		AND AC_ASSETDIVISION = #{assetDivision}
+    	</if>
+    </select>
+    
+    <update id="moveAccount" parameterType="sample.vo.SearchConditionVO">
+	UPDATE TB_ACCOUNT
+	SET AC_CLASSCODE = #{classCode}
+	WHERE (ACCOUNTCODE, AC_PRODUCT) IN 
+	(SELECT ACCOUNTCODE, AC_PRODUCT 
+	 FROM 
+	    (SELECT rownum rn , A.* 
+	    FROM (  SELECT AC.*, ASET.ASSETNAME 
+	            FROM TB_ASSET ASET, TB_ACCOUNT AC 
+	            WHERE ASET.ASSETDIVISION = AC.AC_ASSETDIVISION) A) 
+	       WHERE (RN, AC_PRODUCT) IN  
+		<foreach collection='obtainList' index='index' item='item' open='(' close=')' separator=','>
+		(#{item.dataList}, #{item.ac_product})
+		</foreach>  
+		)
+    </update>
+    
+    <update id="removeAccount" parameterType="sample.vo.AccountVO">
+    UPDATE TB_ACCOUNT
+	SET AC_CLASSCODE = NULL
+	WHERE (ACCOUNTCODE, AC_PRODUCT ) IN 
+	<foreach collection='list' index='index' item='item' open='(' close=')' separator=','>
+	(#{item.accountCode}, #{item.ac_product})
+	</foreach>  
+    </update>
+    
+    <select id="popupCellDetail" parameterType="sample.vo.ClassVO" resultType="sample.vo.ClassVO">
+    SELECT A.*, B.*
+	FROM TB_INSPECTIONITEM A, TB_CLASS B
+	WHERE A.INSPECTIONID = (SELECT CL_INSPECTIONID
+	FROM TB_CLASS 
+	WHERE CLASSCODE = #{classCode}) AND B.CLASSCODE = #{classCode}
+    </select>
+    
+    <select id="isExistInsItem" resultType="int">
+    	SELECT COUNT(*)
+    	FROM TB_INSPECTIONITEM
+    	WHERE INSPECTIONITEM = #{inspectionItem}
+    </select>
+    
+    <select id="isExistClassItem" resultType="int">
+    	SELECT COUNT(*)
+    	FROM TB_CLASS
+    	WHERE CLASSCODE = #{classCode}
+    </select>
+    
+    
+    <insert id="popupSave">
+    	INSERT INTO TB_CLASS VALUES (#{classCode}, #{className}, 
+		(SELECT INSPECTIONID
+		FROM TB_INSPECTIONITEM
+		WHERE INSPECTIONITEM = #{inspectionItem})
+		)
+    </insert>
+    
+    <update id="changeClassName">
+    	update tb_class
+    	set className = #{className}
+    	where classCode = #{classCode}
+    </update>
+    
+    
+    <delete id="deleteClassCode">
+    	delete 
+    	from tb_class
+    	where classcode = #{classCode}
+    </delete>
+    
+</mapper>

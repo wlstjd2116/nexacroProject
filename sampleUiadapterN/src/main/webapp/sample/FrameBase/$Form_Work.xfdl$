@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="loginPopup" width="1920" height="1080" titletext="New Form">
+    <Layouts>
+      <Layout height="1080" width="1920">
+        <Static id="Static00" taborder="0" text="LOGIN" left="900" top="400" width="100" height="35" font="24pt &quot;Arial&quot;,&quot;휴먼둥근헤드라인&quot;"/>
+        <Edit id="Edit00" taborder="1" left="768" top="474" width="373" height="64" borderRadius="5px"/>
+        <Edit id="Edit00_00" taborder="2" left="768" top="555" width="373" height="64" borderRadius="5px"/>
+        <Static id="Static01" taborder="3" text="ID" left="710" top="480" width="33" height="55" onclick="Static01_onclick" font="28px/normal &quot;Malgun Gothic&quot;"/>
+        <Static id="Static01_00" taborder="4" text="PW" left="705" top="555" width="43" height="55" onclick="Static01_onclick" font="28px/normal &quot;Malgun Gothic&quot;"/>
+        <Button id="Button00" taborder="5" text="LOGIN" left="768" top="647" width="373" height="58" borderRadius="5px" onclick="Button00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnLogin();
+	if(this.ds_loginInfo.getColumn(0, "id") != null && this.ds_loginInfo.getColumn(0, "pw") != null){
+		var logedChk = this.ds_loginInfo.getColumn(0,"id");
+		this.go("FrameBase::loginPopup.xfdl"); 
+		//window.sessionStorage.setItem("ID", logedChk);
+		
+// 		var nW = 500;
+// 		var nH = 400;
+// 
+// 		var objApp = nexacro.getApplication();
+// 		var nLeft = (objApp.mainframe.width  / 2) - Math.round(nW / 2);
+// 		var nTop  = (objApp.mainframe.height / 2) - Math.round(nH / 2) ;        
+// 		nLeft = system.clientToScreenX(this, nLeft);
+// 		nTop  = system.clientToScreenY(this, nTop);
+// 		
+// 		var objParam = "";
+// 		var sOpenStyle = "dragmovetype=all"
+// 					 + " resizable=true"
+// 					 + " titletext=Modeless"
+// 					 + " showtitlebar=true"
+// 					 + " showstatusbar=false";
+// 
+// 				
+// 				nexacro.open("PopUp"
+// 			   , "svc::/sample/FrameBase/loginPopup.xfdl"
+// 			   , this.getOwnerFrame()
+// 			   , objParam
+// 			   , sOpenStyle
+// 			   , nLeft
+// 			   , nTop
+// 			   , nW
+// 			   , nH , this);
+
+		
+	}else{
+		alert("로그인 실패");
+	}
+	
+	
+};
+
+this.fnLogin = function (){
+	this.ds_loginData.setColumn(0, "id", this.Edit00.value);
+	this.ds_loginData.setColumn(0, "pw", this.Edit00_00.value);
+	
+	var strSvcId = "classSearch"; // id값 의미가 크게x
+	var strSvcUrl = "svc::login.do"; // controller에 매핑되는 값
+	var inData = "loginInput=ds_loginData" // 
+	var outData = "ds_loginInfo=loginInfo";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = false;
+	
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+}]]></Script>
+    <Objects>
+      <Dataset id="ds_loginData">
+        <ColumnInfo>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="pw" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_loginInfo">
+        <ColumnInfo>
+          <Column id="id" type="STRING" size="256"/>
+          <Column id="pw" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

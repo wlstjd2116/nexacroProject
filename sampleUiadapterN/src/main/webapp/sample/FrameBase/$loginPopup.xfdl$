@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Work" width="1280" height="720" titletext="Form_Work">
+    <Layouts>
+      <Layout width="1280" height="720" screenid="Desktop_screen">
+        <Button id="mainSearch" taborder="0" text="조회" left="1106" top="14" width="46" height="26" onclick="mainSearch_onclick" background="#f7e600"/>
+        <Button id="Button04_00" taborder="1" text="삭제" left="1162" top="14" width="46" height="26" background="#f7e600" onclick="Button04_00_onclick"/>
+        <Button id="Button04_01" taborder="2" text="종료" left="1219" top="14" width="46" height="26" onclick="close" background="#92b8b1" color="#ffffff"/>
+        <Static id="Static00" taborder="3" text="869002 점검항목별 분류코드 관리" left="10" top="12" width="303" height="31" font="11pt/normal &quot;휴먼둥근헤드라인&quot;,&quot;함초롬바탕 확장&quot;"/>
+        <Static id="Static01" taborder="4" text="점검항목별 분류코드 관리" left="10" top="60" width="217" height="24" onclick="Static01_onclick" font="12px/normal &quot;함초롬바탕 확장&quot; bold"/>
+        <MaskEdit id="MaskEdit00" taborder="5" left="11" top="91" width="1255" height="30" readonly="true" background="#ffffff"/>
+        <Combo id="Combo01" taborder="6" text="" left="130" top="94" width="530" height="24" value="1" index="-1" onitemchanged="Combo01_onitemchanged" innerdataset="ds_search" codecolumn="inspectionId" datacolumn="inspectionItem"/>
+        <Static id="Static02" taborder="7" text="  한도 점검항목" left="11" top="92" width="109" height="28" background="#d3d3d3"/>
+        <Static id="Static01_00" taborder="8" text="점검항목별 분류코드" left="11" top="130" width="217" height="24" onclick="Static01_onclick" font="12px/normal &quot;함초롬바탕 확장&quot; bold"/>
+        <Grid id="Grid01" taborder="9" left="11" top="162" width="289" height="459" binddataset="ds_class_code" autofittype="col" oncellclick="Grid01onCellClick" oncellposchanged="chagne">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="분류코드"/>
+                <Cell col="1" text="코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:classCode" maskedittype="string" displaytype="normal"/>
+                <Cell col="1" text="bind:className"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="reg_div_code" taborder="10" text="분류코드등록" left="220" top="134" width="80" height="16" onclick="reg_div_code_onclick" background="#92b8b1" color="#ffffff" borderRadius="2px"/>
+        <Static id="Static01_00_00" taborder="11" text="분류코드별 계정코드" left="323" top="130" width="217" height="24" onclick="Static01_onclick" font="12px/normal &quot;함초롬바탕 확장&quot; bold"/>
+        <CheckBox id="CheckBox00" taborder="12" text="" left="-203" top="164" height="25" right="1465"/>
+        <Static id="Static01_00_00_00" taborder="13" text="계정코드" left="680" top="134" width="217" height="24" onclick="Static01_onclick" font="12px/normal &quot;함초롬바탕 확장&quot; bold"/>
+        <MaskEdit id="MaskEdit00_00" taborder="14" left="680" top="161" width="583" height="31" readonly="true" background="#ffffff"/>
+        <Static id="Static04" taborder="15" text="  자산구분" left="680" top="162" width="90" height="30" background="#90d5eb" onclick="Static04_onclick"/>
+        <Grid id="Grid00" taborder="16" left="681" top="246" width="584" height="374" binddataset="ds_account" autofittype="col" onheadclick="Grid00_onheadclick" oncelldblclick="Grid00_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="80"/>
+                <Column size="113"/>
+                <Column size="80"/>
+                <Column size="103"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="chk" displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1"/>
+                <Cell col="1" text="계정코드"/>
+                <Cell col="2" text="계정코드명"/>
+                <Cell col="3" text="상품분류"/>
+                <Cell col="4" text="상품분류명"/>
+                <Cell col="5" text="자산구분"/>
+                <Cell col="6" text="자산구분명"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:chk" checkboxtruevalue="1" checkboxfalsevalue="0"/>
+                <Cell col="1" text="bind:accountCode"/>
+                <Cell col="2" text="bind:accountName"/>
+                <Cell col="3" text="bind:ac_product"/>
+                <Cell col="4" text="bind:ac_productName"/>
+                <Cell col="5" text="bind:ac_assetDivision"/>
+                <Cell col="6" text="bind:assetName"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button04_01_00" taborder="17" text="검색" left="1217" top="210" width="46" height="26" onclick="Button04_01_onclick" background="#92b8b1" color="#ffffff"/>
+        <Button id="Button00" taborder="18" text=" &gt;&gt;" left="643" top="370" width="35" height="31" onclick="Button00_onclick"/>
+        <Button id="Button00_00" taborder="19" text=" &lt;&lt;" left="643" top="413" width="35" height="27" onclick="Button00_00_onclick"/>
+        <Combo id="Combo00" taborder="20" text="" left="783" top="164" width="394" height="26" innerdataset="ds_asset_list" codecolumn="assetDivision" datacolumn="assetName" onitemchanged="Combo00_onitemchanged" value="ALL" index="-1"/>
+        <Grid id="Grid03" taborder="21" left="320" top="160" width="320" height="460" binddataset="ds_account_code" autofittype="col" onheadclick="Grid03_onheadclick" onmousedown="Grid03_onmousedown" oncelldblclick="Grid03_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" checkboxfalsevalue="0" checkboxtruevalue="1" text="bind:chk"/>
+                <Cell col="1" text="계정코드"/>
+                <Cell col="2" text="계정코드명"/>
+              </Band>
+              <Band id="body">
+                <Cell edittype="checkbox" displaytype="checkboxcontrol" checkboxfalsevalue="0" checkboxtruevalue="1" text="bind:chk"/>
+                <Cell col="1" text="bind:accountCode"/>
+                <Cell col="2" text="bind:accountName"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_search">
+        <ColumnInfo>
+          <Column id="inspectionId" type="STRING" size="256"/>
+          <Column id="inspectionItem" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_removeAccount">
+        <ColumnInfo>
+          <Column id="accountCode" type="STRING" size="256"/>
+          <Column id="ac_product" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_account_code">
+        <ColumnInfo>
+          <Column id="계정코드" type="STRING" size="256"/>
+          <Column id="계정코드명" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+          <Column id="ac_product" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_account">
+        <ColumnInfo>
+          <Column id="계정코드" type="STRING" size="256"/>
+          <Column id="계정코드명" type="STRING" size="256"/>
+          <Column id="상품분류" type="STRING" size="256"/>
+          <Column id="상품분류명" type="STRING" size="256"/>
+          <Column id="자산구분" type="STRING" size="256"/>
+          <Column id="자산구분명" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_popup_div">
+        <ColumnInfo>
+          <Column id="분류코드" type="STRING" size="256"/>
+          <Column id="분류코드명" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_class_code">
+        <ColumnInfo>
+          <Column id="분류코드" type="STRING" size="256"/>
+          <Column id="코드명" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_asset_list">
+        <ColumnInfo>
+          <Column id="assetdivision" type="STRING" size="256"/>
+          <Column id="assetname" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_inspection">
+        <ColumnInfo>
+          <Column id="inspectionId" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_commonSearch">
+        <ColumnInfo>
+          <Column id="cellNum" type="STRING" size="256"/>
+          <Column id="inspectionId" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_assetSearch">
+        <ColumnInfo>
+          <Column id="assetDivision" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_accountList">
+        <ColumnInfo>
+          <Column id="dataList" type="STRING" size="256"/>
+          <Column id="ac_product" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_cellClickSearch">
+        <ColumnInfo>
+          <Column id="classCode" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_saveVal">
+        <ColumnInfo>
+          <Column id="val" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[	var svcId="inspect";
+	var svcUrl="svc::selectInspectionList.do";
+	var inData = "";
+	var outData = "ds_search=inspectionList";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+	
+	this.transaction(svcId,
+					 svcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+
+ 	var svcId="asset";
+ 	var svcUrl="svc::selectInspectionList.do";
+ 	var inData = "";
+ 	var outData = "ds_asset_list=assetList";
+ 	var strArg = "";
+ 	var callBackFnc = "fnCallback";
+ 	var isAsync = true;
+ 	
+ 	this.transaction(svcId,
+ 					 svcUrl,
+ 					inData,
+ 					outData,
+ 					strArg,
+ 					callBackFnc,
+ 					isAsync);
+					
+this.Grid03.setFormatRowProperty(3, "size", 0);
+
+//처리콜백 함수
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+  // 에러 시 화면 처리 내역
+  if(errorCode != 0)
+  {
+    this.alert(errorCode+"\n"+errorMsg);
+    return;
+  }
+
+  switch(svcID)
+  {
+    case "search":
+      if(this.ds_list.rowcount < 1){
+        this.alert("조회된 결과가 없습니다.");
+      }
+
+      break;
+      
+    case "saveMove":
+      this.alert("저장 되었습니다.");
+      break;
+	  
+	 case "removeAccount":
+		this.alert("삭제되었습니다");
+		break;
+  
+	 case "cellDelete":
+		this.fnSearch();
+		break;
+  }
+};
+
+// 계정코드 검색 버튼
+this.Button04_01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnAccountSearch();
+};
+
+// 계정코드 검색
+this.fnAccountSearch = function() {
+	// 검색 조건
+	this.ds_assetSearch.setColumn(0, "assetDivision", this.Combo00.value);
+	
+	var strSvcId = "accountForAsset"; // id값 의미가 크게x
+	var strSvcUrl = "svc::selectAccountForAsset.do"; // controller에 매핑되는 값
+	var inData = "inputAsset=ds_assetSearch" // 
+	var outData = "ds_account=resAccountForAssetList";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+}
+
+// 팝업
+this.reg_div_code_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var nW = 500;
+	var nH = 400;
+
+	var objApp = nexacro.getApplication();
+	var nLeft = (objApp.mainframe.width  / 2) - Math.round(nW / 2);
+	var nTop  = (objApp.mainframe.height / 2) - Math.round(nH / 2) ;        
+	nLeft = system.clientToScreenX(this, nLeft);
+	nTop  = system.clientToScreenY(this, nTop);
+
+var objParam = "";
+// {param1:this.edt_param1.value
+//               , param2:this.edt_param2.value
+              /*, param3:this.ds_parent};*/
+
+var sOpenStyle = "dragmovetype=all"
+             + " resizable=true"
+             + " titletext=Modeless"
+             + " showtitlebar=true"
+             + " showstatusbar=false";
+
+			
+			nexacro.open("PopUpuouououo"
+           , "svc::/sample/FrameBase/PopUp.xfdl"
+           , this.getOwnerFrame()
+           , objParam
+           , sOpenStyle
+           , nLeft
+           , nTop
+           , nW
+           , nH , this);
+
+};
+
+
+// 메인 검색버튼
+var accountList = []
+this.mainSearch_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	this.fnInspectionList();
+	this.fnSearch(); 
+	this.fnReadAssetList();
+	this.fnReadAccountList();
+};
+
+this.fnInspectionList = function() {
+
+	
+	var svcId="inspect1";
+	var svcUrl="svc::selectMainList.do";
+	var inData = "inputInspection=ds_inspection" // 
+	var outData = "ds_search=inspectionList";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+	
+	this.transaction(svcId,
+					 svcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+
+};
+
+this.fnReadAccountList = function() {
+	var svcId="account";
+	var svcUrl="svc::selectMainList.do";
+	var inData = "inputInspection=ds_inspection" // 
+	var outData = "ds_account=accountList";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+	
+	this.transaction(svcId,
+					 svcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+
+};
+
+this.fnSearch = function (){
+	// 검색 조건
+	this.ds_inspection.setColumn(0, "inspectionId", this.Combo01.value);
+	
+	var strSvcId = "classSearch"; // id값 의미가 크게x
+	var strSvcUrl = "svc::selectMainList.do"; // controller에 매핑되는 값
+	var inData = "inputInspection=ds_inspection" // 
+	var outData = "ds_class_code=output1";
+	var strArg = "";
+	var callBackFnc = "fnCallback";
+	var isAsync = true;
+
+	
+	this.transaction(strSvcId,
+					 strSvcUrl,
+					inData,
+					outData,
+					strArg,
+					callBackFnc,
+					isAsync);
+};
+
+ this.fnReadAssetList = function (){
+ 	var svcId="asset";
+ 	var svcUrl="svc::selectMainList.do";
+ 	var inData = "inputInspection=ds_inspection" // 
+ 	var outData = "ds_asset_list=assetList";
+ 	var strArg = "";
+ 	var callBackFnc = "fnCallback";
+ 	var isAsync = true;
+ 	
+ 	this.transaction(svcId,
+ 					 svcUrl,
+ 					inData,
+ 					outData,
+ 					strArg,
+ 					callBackFnc,
+ 					isAsync);
+ }
+
+
+// 분류코드 셀 클릭시
+this.Grid01onCellClick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{ //e.row
+	// 검색 조건
+	this.ds_commonSearch.setColumn(0, "cellNum", e.row+1);
+	this.ds_commonSearch.setColumn(0, "inspectionId", this.Combo01.value);
+	
+	
+	var svcId="cellClickEvent";
+ 	var svcUrl="svc::cellClick.do";
+ 	var inData = "inputCellNum=ds_commonSearch" // 
+ 	var outData = "ds_account_code=cellResult";
+ 	var strArg = "";
+ 	var callBackFnc = "fnCallback";
+ 	var isAsync = true;
+ 	
+ 	this.transaction(svcId,
+ 					 svcUrl,
+ 					inData,
+ 					outData,
+ 					strArg,
+ 					callBackFnc,
+ 					isAsync);
+					
+	this.ds_cellClickSearch.setColumn(0, "classCode", obj.getBindDataset().getColumn(e.row,"classCode"));
+
+};
+// 그리드 전체체크/ 전체해제
+this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.cell==0)
+	{
+		//그리드 전체체크/체크해제 실행 함수 호출
+		this.gfnSetGridCheckAll(obj, e);
+	}
+};
+
+this.gfnSetGridCheckAll = function (obj, e)
+{
+	var sChk;
+	var sVal;
+	var objDs;
+	var nCellIdx  = e.cell;
+	var sColumnId;
+	
+	//그리드에 연결된 데이터셋 가져오기
+	objDs  = obj.getBindDataset();
+	
+	//데이터셋에 데이터가 없을 경우 리턴
+	if(objDs.rowcount < 1) return;
+	
+	//전체 체크/체크해제할 컬럼명 구하기
+	sColumnId = obj.getCellProperty("body", nCellIdx, "text");
+	sColumnId = sColumnId.toString().replace("bind:", "");
+		
+	//Head의 현재 Check설정 값 가져오기
+	sVal = obj.getCellProperty("head", nCellIdx, "text");
+
+	//현재 체크상태일 경우
+	if (sVal == "1" )
+	{
+		//Head의 값을 체크해제로 설정
+		obj.setCellProperty("head", nCellIdx, "text", "0");
+		sChk="0";
+	}
+	//현재 체크해제상태일 경우
+	else {
+		//Head의 값을 체크로 설정
+		obj.setCellProperty("head", nCellIdx, "text", "1");
+		sChk="1";
+	}
+	
+	
+	//성능 개선을 위해 이벤트 발생 정지
+	objDs.set_enableevent(false);
+	
+	// Body에 전체 체크/체크해제 상태 적용
+	for(var i=0 ; i< objDs.rowcount ; i++) 
+	{
+		objDs.setColumn(i, sColumnId, sChk);
+	}
+	
+	//성능 개선을 위해 이벤트 발생 재실행
+	objDs.set_enableevent(true);
+};
+
+
+// 계정코드에서 한 셀을 더블클릭했을 때 checkBox On
+var putDataList = [];
+var productDivList = [];
+var productList = [];
+ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+ {	
+ 	if(obj.getBindDataset().getColumn(e.row,"chk") == "1"){
+ 		obj.getBindDataset().setColumn(e.row, "chk", "0");
+ 	}else{
+ 		obj.getBindDataset().setColumn(e.row, "chk", "1");	
+ 	}
+ };
+
+// 데이터 리스트에 값 추가
+this.fnPutDataList = function (putData){
+	putDataList.push(putData);
+}
+
+// 상품분류리스트 값 추가 
+this.fnPutProudctDivList = function (putData){
+	productDivList.push(putData);
+}
+
+// 계정 옮기기 버튼
+this.Button00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fnMoveAccount(this.Grid00);
+};
+
+// 계정 옮기기 함수
+this.fnMoveAccount = function(grid){
+	
+	var bindDS = grid.getBindDataset();
+	putDataList = [];
+	productDivList = [];
+	
+	if(bindDS.rowcount > 1){
+		for(var i=0; i<bindDS.rowcount; i++){
+			if(bindDS.getColumn(i, "chk") == "1"){
+				putDataList.push(i+1);
+				productDivList.push(bindDS.getColumn(i, "ac_product"));
+			}
+		}
+	}
+	
+	if(putDataList.length == 0){
+		alert("계정코드를 선택해주세요");
+		return false;
+	}
+	// 검색 조건
+	this.ds_accountList.setColumn(0, "dataList", putDataList);
+	this.ds_accountList.setColumn(0, "ac_product", productDivList);
+
+	var svcId="saveMove";
+ 	var svcUrl="svc::moveAccount.do";
+ 	var inData = "inputDataList=ds_accountList"; 
+ 	var outData = "ds_account_code=moveAccountRes";
+ 	var strArg = "";
+ 	var callBackFnc = "fnCallback";
+ 	var isAsync = true;
+ 	
+ 	this.transaction(svcId,
+ 					 svcUrl,
+ 					inData,
+ 					outData,
+ 					strArg,
+ 					callBackFnc,
+ 					isAsync);
+}
+
+// 분류코드별 계정코드 셀 클릭 시
+this.Grid03_oncellClick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	if(obj.getBindDataset().getColumn(e.row,"chk") == "1"){
+		obj.getBindDataset().setColumn(e.row, "chk", "0");
+	}else{
+		obj.getBindDataset().setColumn(e.row, "chk", "1");
+	}
+ 
+};
+
+// 분류코드별 계정코드 셀 전체선택/해제
+this.Grid03_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.gfnSetGridCheckAll(obj, e);
+};
+
+
+
+// 버튼으로 분류코드별 계정코드 삭제 버튼
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var bindDS = this.Grid03.getBindDataset();
+	accountList = [];
+	productList = [];
+	
+	if(bindDS.rowcount > 1){
+		for(var i=0; i<bindDS.rowcount; i++){
+			if(bindDS.getColumn(i, "chk") == "1"){
+				accountList.push(bindDS.getColumn(i, "accountCode"));
+				productList.push(bindDS.getColumn(i, "ac_product"));
+			}
+		}
+	}
+	
+	if(productList.length == 0){
+		alert("계정코드를 선택해주세요");
+		return false;
+	}
+	// 검색 조건
+	this.ds_removeAccount.setColumn(0, "accountCode", accountList);
+	this.ds_removeAccount.setColumn(0, "ac_product", productList);
+	
+	var svcId="removeAccount";
+ 	var svcUrl="svc::removeAccount.do";
+ 	var inData = "inputDataList=ds_removeAccount" // 
+ 	var outData = "ds_account_code=removeAccountRes";
+ 	var strArg = "";
+ 	var callBackFnc = "fnCallback";
+ 	var isAsync = true;
+ 	
+ 	this.transaction(svcId,
+ 					 svcUrl,
+ 					inData,
+ 					outData,
+ 					strArg,
+ 					callBackFnc,
+ 					isAsync);
+};
+
+
+this.Grid03_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	this.Grid03_oncellClick(obj, e)
+};
+
+
+
+this.Combo01_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.fnSearch(); 
+};
+
+// 메인페이지 삭제버튼
+this.Button04_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	if(this.ds_cellClickSearch.getColumn(0, "classCode") != null){
+		var strSvcId = "cellDelete";
+		var strSvcUrl = "svc::deleteClassCode.do"; 
+		var inData = "delete=ds_cellClickSearch" // 
+		var outData = "";
+		var strArg = "";
+		var callBackFnc = "fnCallback";
+		var isAsync = false;
+		this.transaction(strSvcId,
+						 strSvcUrl,
+						inData,
+						outData,
+						strArg,
+						callBackFnc,
+						isAsync);
+		alert("삭제되었습니다");
+	}else{
+		alert("값을 선택해주세요.");
+	}
+	
+};
+
+this.close = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.fnSaveVal = function(val){
+	this.ds_saveVal.setColumn(0, "val", val);
+	alert(this.ds_saveVal.getColumn(0, "val"));
+}]]></Script>
+  </Form>
+</FDL>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <GenInfo version="1.1">
+    <Rule>
+      <ENV rule_version="1.05"/>
+      <ADL rule_version="1.14"/>
+      <FDL rule_version="1.04"/>
+      <XCSS rule_version="1.04"/>
+      <Script rule_version="1.02"/>
+      <GeneratorInfo rule_version="1.2"/>
+    </Rule>
+    <Info project="C:\DevFolder\eGov-3.10\eGovFrameDev-3.10.0-64bit\workspace\sampleUiadapterN\src\main\webapp\sample\" generated="C:\DevFolder\eGov-3.10\eGovFrameDev-3.10.0-64bit\workspace\sampleUiadapterN\src\main\webapp\sample\"><File url="typedefinition.xml" checksum="20230220150020" errormsg=""/><File url="appvariables.xml" checksum="20230220132107" errormsg=""/><File url="environment.xml" checksum="20230220141353" errormsg=""/><File url="_resource_\_theme_\blue\theme.xcss" checksum="20230220132107" errormsg=""/><File url="Application_Desktop.xadl" checksum="20230220132107" errormsg=""/><File url="FrameBase\loginPopup.xfdl" checksum="20230307164305" errormsg=""/><File url="C:\Program Files (x86)\TOBESOFT\Nexacro N\SDK\21.0.0\nexacrolib\framework\Framework.json" checksum="20221228172854" errormsg=""/><File url="C:\Program Files (x86)\TOBESOFT\Nexacro N\SDK\21.0.0\nexacrolib\resources\Resource.json" checksum="20221228172854" errormsg=""/><File url="C:\Program Files (x86)\TOBESOFT\Nexacro N\SDK\21.0.0\nexacrolib\component\CompBase.json" checksum="20221228172850" errormsg=""/><File url="C:\Program Files (x86)\TOBESOFT\Nexacro N\SDK\21.0.0\nexacrolib\component\ComComp.json" checksum="20221228172850" errormsg=""/><File url="C:\Program Files (x86)\TOBESOFT\Nexacro N\SDK\21.0.0\nexacrolib\component\Grid.json" checksum="20221228172852" errormsg=""/><File url="C:\Program Files (x86)\TOBESOFT\Nexacro N\SDK\21.0.0\nexacrolib\component\ListView.json" checksum="20221228172856" errormsg=""/><File url="C:\Program Files (x86)\TOBESOFT\Nexacro N\SDK\21.0.0\nexacrolib\component\DeviceAPI.json" checksum="20221228172850" errormsg=""/><File url="Base\gridallcheck.xfdl" checksum="20190709151436" errormsg=""/><File url="FrameBase\Popup.xfdl" checksum="20230307163954" errormsg=""/><File url="FrameBase\Form_Work.xfdl" checksum="20230307124835" errormsg=""/></Info>
+  </GenInfo>
+</root>
